@@ -1,0 +1,27 @@
+{
+  "name": "rn-web-starter",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "expo start",
+    "web": "expo start --web",
+    "android": "expo start --android",
+    "ios": "expo start --ios",
+    "build:web": "expo build:web || expo export:web",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx"
+  },
+  "dependencies": {
+    "expo": "*",
+    "react": "*",
+    "react-dom": "*",
+    "react-native": "*",
+    "react-native-web": "*"
+  },
+  "devDependencies": {
+    "typescript": "*",
+    "@types/react": "*",
+    "@types/react-native": "*",
+    "babel-preset-expo": "*",
+    "eslint": "*"
+  }
+}

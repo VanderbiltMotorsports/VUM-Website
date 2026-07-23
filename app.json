@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "RN Web Starter",
+    "slug": "rn-web-starter",
+    "platforms": ["ios", "android", "web"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "assetBundlePatterns": ["**/*"],
+    "web": {}
+  }
+}
