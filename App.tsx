@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Pressable, Linking, ScrollView, Platform } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Pressable, Linking, ScrollView, Platform, TextInput } from 'react-native';
 
 type Route = 'home' | 'car' | 'sponsor' | 'contact';
 
-const TEAM_MEMBERS = [
-  { name: 'Avery Smith', role: 'Team Lead / Chassis', email: 'avery.smith@vum.example.edu' },
-  { name: 'Jordan Lee', role: 'Powertrain Lead', email: 'jordan.lee@vum.example.edu' },
-  { name: 'Taylor Nguyen', role: 'Aerodynamics', email: 'taylor.nguyen@vum.example.edu' },
-  { name: 'Riley Patel', role: 'Electronics & Controls', email: 'riley.patel@vum.example.edu' }
+type Member = { name: string; role: string; email: string; year?: string };
+
+const TEAM_MEMBERS: Member[] = [
+  { name: 'Avery Smith', role: 'Team Lead / Chassis', email: 'avery.smith@vum.example.edu', year: 'Senior' },
+  { name: 'Jordan Lee', role: 'Powertrain Lead', email: 'jordan.lee@vum.example.edu', year: 'Junior' },
+  { name: 'Taylor Nguyen', role: 'Aerodynamics', email: 'taylor.nguyen@vum.example.edu', year: 'Sophomore' },
+  { name: 'Riley Patel', role: 'Electronics & Controls', email: 'riley.patel@vum.example.edu', year: 'Freshman' }
 ];
 
 export default function App() {
@@ -157,7 +159,12 @@ function Sponsor() {
 }
 
 function Contact() {
+  const [members, setMembers] = useState<Member[]>(TEAM_MEMBERS);
   const openMail = (email: string) => Linking.openURL(`mailto:${email}`);
+
+  const updateYear = (email: string, year: string) => {
+    setMembers((prev) => prev.map((m) => (m.email === email ? { ...m, year } : m)));
+  };
 
   return (
     <View style={styles.page}>
@@ -168,9 +175,22 @@ function Contact() {
       </Text>
 
       <View style={styles.members}>
-        {TEAM_MEMBERS.map((m) => (
+        {members.map((m) => (
           <View key={m.email} style={styles.member}>
             <Text style={styles.memberName}>{m.name}</Text>
+
+            <View style={styles.yearRow}>
+              <Text style={styles.yearLabel}>Year:</Text>
+              <TextInput
+                style={styles.yearInput}
+                placeholder="e.g. Freshman, Sophomore"
+                value={m.year || ''}
+                onChangeText={(text) => updateYear(m.email, text)}
+                accessible
+                accessibilityLabel={`Year for ${m.name}`}
+              />
+            </View>
+
             <Text style={styles.memberRole}>{m.role}</Text>
             <Pressable onPress={() => openMail(m.email)}>
               <Text style={styles.memberEmail}>{m.email}</Text>
@@ -178,6 +198,8 @@ function Contact() {
           </View>
         ))}
       </View>
+
+      <Text style={[styles.paragraph, { marginTop: 12 }]}>Note: these values are stored in the app state — to persist them, update the TEAM_MEMBERS list in App.tsx or connect to a backend.</Text>
     </View>
   );
 }
@@ -215,5 +237,8 @@ const styles = StyleSheet.create({
   member: { marginBottom: 12, padding: 12, borderWidth: 1, borderColor: '#eee', borderRadius: 8 },
   memberName: { fontWeight: '700' },
   memberRole: { color: '#444', marginBottom: 6 },
-  memberEmail: { color: '#0066cc' }
+  memberEmail: { color: '#0066cc' },
+  yearRow: { flexDirection: 'row', alignItems: 'center', marginTop: 8 },
+  yearLabel: { marginRight: 8, color: '#333' },
+  yearInput: { borderWidth: 1, borderColor: '#ddd', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 6, minWidth: 160 }
 });
