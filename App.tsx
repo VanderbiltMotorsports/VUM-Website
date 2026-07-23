@@ -6,10 +6,10 @@ type Route = 'home' | 'car' | 'sponsor' | 'contact';
 type Member = { name: string; role: string; email: string; year?: string };
 
 const TEAM_MEMBERS: Member[] = [
-  { name: 'Avery Smith', role: 'Team Lead / Chassis', email: 'avery.smith@vum.example.edu', year: 'Senior' },
-  { name: 'Jordan Lee', role: 'Powertrain Lead', email: 'jordan.lee@vum.example.edu', year: 'Junior' },
-  { name: 'Taylor Nguyen', role: 'Aerodynamics', email: 'taylor.nguyen@vum.example.edu', year: 'Sophomore' },
-  { name: 'Riley Patel', role: 'Electronics & Controls', email: 'riley.patel@vum.example.edu', year: 'Freshman' }
+  { name: 'Sebastien Jacques', role: 'President', email: 'avery.smith@vum.example.edu', year: 'Senior' },
+  { name: 'Manu Thomas', role: 'Vice President', email: 'jordan.lee@vum.example.edu', year: 'Junior' },
+  { name: 'Kriti Lohiya', role: 'Secretary', email: 'taylor.nguyen@vum.example.edu', year: 'Sophomore' },
+  { name: 'Phil Davis', role: 'Faculty Advisor', email: 'riley.patel@vum.example.edu', year: 'Faculty Advisor' }
 ];
 
 export default function App() {
