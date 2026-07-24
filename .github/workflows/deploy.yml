@@ -30,6 +30,11 @@ jobs:
       
       - run: npx expo export --platform web
       
+      - name: Fix base path for GitHub Pages
+        run: |
+          sed -i 's|href="/|href="/VUM-Website2/|g' dist/index.html
+          sed -i 's|src="/|src="/VUM-Website2/|g' dist/index.html
+      
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
@@ -44,3 +49,4 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
