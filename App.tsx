@@ -1,15 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Pressable, Linking, ScrollView, Platform, TextInput } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Pressable, Linking, ScrollView, Platform } from 'react-native';
 
 type Route = 'home' | 'car' | 'sponsor' | 'contact';
 
-type Member = { name: string; role: string; email: string; year?: string };
+type Member = { name: string; role: string; email: string; year: string; major: string; category: 'executive' | 'returning' | 'faculty' };
 
 const TEAM_MEMBERS: Member[] = [
-  { name: 'Sebastien Jacques', role: 'President', email: 'avery.smith@vum.example.edu', year: 'Senior' },
-  { name: 'Manu Thomas', role: 'Vice President', email: 'jordan.lee@vum.example.edu', year: 'Junior' },
-  { name: 'Kriti Lohiya', role: 'Secretary', email: 'taylor.nguyen@vum.example.edu', year: 'Sophomore' },
-  { name: 'Phil Davis', role: 'Faculty Advisor', email: 'riley.patel@vum.example.edu', year: 'Faculty Advisor' }
+  { name: 'Sebastien Jacques', role: 'President', email: 'avery.smith@vum.example.edu', year: 'Senior', major: 'Mechanical Engineering', category: 'executive' },
+  { name: 'Manu Thomas', role: 'Vice President', email: 'jordan.lee@vum.example.edu', year: 'Junior', major: 'Mechanical Engineering', category: 'executive' },
+  { name: 'Kriti Lohiya', role: 'Secretary', email: 'taylor.nguyen@vum.example.edu', year: 'Sophomore', major: 'Computer Engineering', category: 'executive' },
+  { name: 'Sarah Chen', role: 'Aerodynamics Lead', email: 'sarah.chen@vum.example.edu', year: 'Junior', major: 'Aerospace Engineering', category: 'returning' },
+  { name: 'Alex Rodriguez', role: 'Powertrain Lead', email: 'alex.rodriguez@vum.example.edu', year: 'Senior', major: 'Mechanical Engineering', category: 'returning' },
+  { name: 'Phil Davis', role: 'Faculty Advisor', email: 'riley.patel@vum.example.edu', year: 'Faculty', major: 'Engineering Faculty', category: 'faculty' }
 ];
 
 export default function App() {
@@ -159,12 +161,32 @@ function Sponsor() {
 }
 
 function Contact() {
-  const [members, setMembers] = useState<Member[]>(TEAM_MEMBERS);
   const openMail = (email: string) => Linking.openURL(`mailto:${email}`);
 
-  const updateYear = (email: string, year: string) => {
-    setMembers((prev) => prev.map((m) => (m.email === email ? { ...m, year } : m)));
-  };
+  const executiveBoard = TEAM_MEMBERS.filter(m => m.category === 'executive');
+  const returningMembers = TEAM_MEMBERS.filter(m => m.category === 'returning');
+  const facultyAdvisors = TEAM_MEMBERS.filter(m => m.category === 'faculty');
+
+  const MemberCard = ({ member }: { member: Member }) => (
+    <View style={styles.member}>
+      <Text style={styles.memberName}>{member.name}</Text>
+      <Text style={styles.memberRole}>{member.role}</Text>
+      <Text style={styles.memberMajor}>{member.major}</Text>
+      <Text style={styles.memberYear}>{member.year}</Text>
+      <Pressable onPress={() => openMail(member.email)}>
+        <Text style={styles.memberEmail}>{member.email}</Text>
+      </Pressable>
+    </View>
+  );
+
+  const MemberSection = ({ title, members }: { title: string; members: Member[] }) => (
+    <View style={styles.memberSection}>
+      <Text style={styles.sectionTitle}>{title}</Text>
+      {members.map((m) => (
+        <MemberCard key={m.email} member={m} />
+      ))}
+    </View>
+  );
 
   return (
     <View style={styles.page}>
@@ -174,32 +196,9 @@ function Contact() {
         Reach out to our student leads for specific questions about engineering, sponsorship, or joining the team.
       </Text>
 
-      <View style={styles.members}>
-        {members.map((m) => (
-          <View key={m.email} style={styles.member}>
-            <Text style={styles.memberName}>{m.name}</Text>
-
-            <View style={styles.yearRow}>
-              <Text style={styles.yearLabel}>Year:</Text>
-              <TextInput
-                style={styles.yearInput}
-                placeholder="e.g. Freshman, Sophomore"
-                value={m.year || ''}
-                onChangeText={(text) => updateYear(m.email, text)}
-                accessible
-                accessibilityLabel={`Year for ${m.name}`}
-              />
-            </View>
-
-            <Text style={styles.memberRole}>{m.role}</Text>
-            <Pressable onPress={() => openMail(m.email)}>
-              <Text style={styles.memberEmail}>{m.email}</Text>
-            </Pressable>
-          </View>
-        ))}
-      </View>
-
-      <Text style={[styles.paragraph, { marginTop: 12 }]}>Note: these values are stored in the app state — to persist them, update the TEAM_MEMBERS list in App.tsx or connect to a backend.</Text>
+      <MemberSection title="Executive Board" members={executiveBoard} />
+      <MemberSection title="Returning Members" members={returningMembers} />
+      <MemberSection title="Faculty Advisor" members={facultyAdvisors} />
     </View>
   );
 }
@@ -234,11 +233,12 @@ const styles = StyleSheet.create({
   footer: { padding: 16, borderTopWidth: 1, borderTopColor: '#333', alignItems: 'center', backgroundColor: '#000' },
   footerText: { color: '#999' },
   members: { marginTop: 12 },
+  memberSection: { marginTop: 20, marginBottom: 20 },
+  sectionTitle: { fontSize: 18, fontWeight: '700', color: '#c2872f', marginBottom: 12, paddingBottomWidth: 2, borderBottomWidth: 1, borderBottomColor: '#444', paddingBottom: 8 },
   member: { marginBottom: 12, padding: 12, borderWidth: 1, borderColor: '#333', borderRadius: 8, backgroundColor: '#111' },
-  memberName: { fontWeight: '700', color: '#c2872f' },
-  memberRole: { color: '#ccc', marginBottom: 6 },
-  memberEmail: { color: '#c2872f' },
-  yearRow: { flexDirection: 'row', alignItems: 'center', marginTop: 8 },
-  yearLabel: { marginRight: 8, color: '#ccc' },
-  yearInput: { borderWidth: 1, borderColor: '#444', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 6, minWidth: 160, backgroundColor: '#1a1a1a', color: '#fff' }
+  memberName: { fontWeight: '700', color: '#c2872f', fontSize: 16 },
+  memberRole: { color: '#ccc', marginBottom: 4, fontSize: 14 },
+  memberMajor: { color: '#aaa', marginBottom: 4, fontSize: 13 },
+  memberYear: { color: '#999', marginBottom: 8, fontSize: 13 },
+  memberEmail: { color: '#c2872f', marginTop: 8 },
 });
