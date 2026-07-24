@@ -9,9 +9,6 @@
     "web": {
       "bundler": "metro",
       "output": "dist"
-    },
-    "plugins": [
-      ["@react-native-community/hooks", {}]
-    ]
+    }
   }
 }
