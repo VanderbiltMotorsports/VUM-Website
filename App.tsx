@@ -205,14 +205,14 @@ function Contact() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: '#fff' },
+  safe: { flex: 1, backgroundColor: '#000' },
   header: {
     padding: 18,
     borderBottomWidth: 1,
-    borderBottomColor: '#eee',
-    backgroundColor: '#0a2540'
+    borderBottomColor: '#333',
+    backgroundColor: '#000'
   },
-  brand: { color: 'white', fontSize: 20, fontWeight: '700', marginBottom: 8 },
+  brand: { color: '#c2872f', fontSize: 20, fontWeight: '700', marginBottom: 8 },
   nav: { flexDirection: 'row', gap: 10 },
   navButton: {
     paddingVertical: 8,
@@ -221,24 +221,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent'
   },
   navButtonPressed: { opacity: 0.7 },
-  navButtonActive: { backgroundColor: '#1b5f9e' },
-  navButtonText: { color: 'white', fontWeight: '600' },
-  navButtonTextActive: { color: 'white' },
-  content: { padding: 24, paddingBottom: 120 },
+  navButtonActive: { backgroundColor: '#c2872f' },
+  navButtonText: { color: '#fff', fontWeight: '600' },
+  navButtonTextActive: { color: '#000' },
+  content: { padding: 24, paddingBottom: 120, backgroundColor: '#000' },
   page: { maxWidth: 900, alignSelf: 'center' },
-  title: { fontSize: 28, fontWeight: '800', marginBottom: 12, color: '#0a2540' },
-  subtitle: { fontSize: 18, fontWeight: '700', marginTop: 12, marginBottom: 6, color: '#0a2540' },
-  paragraph: { fontSize: 16, color: '#222', lineHeight: 22, marginBottom: 8 },
+  title: { fontSize: 28, fontWeight: '800', marginBottom: 12, color: '#c2872f' },
+  subtitle: { fontSize: 18, fontWeight: '700', marginTop: 12, marginBottom: 6, color: '#c2872f' },
+  paragraph: { fontSize: 16, color: '#fff', lineHeight: 22, marginBottom: 8 },
   sponsorButton: { backgroundColor: '#c2872f', paddingVertical: 12, paddingHorizontal: 16, borderRadius: 8, alignSelf: 'flex-start', marginTop: 8, marginBottom: 12 },
-  sponsorButtonText: { color: 'white', fontWeight: '700' },
-  footer: { padding: 16, borderTopWidth: 1, borderTopColor: '#eee', alignItems: 'center' },
-  footerText: { color: '#666' },
+  sponsorButtonText: { color: '#000', fontWeight: '700' },
+  footer: { padding: 16, borderTopWidth: 1, borderTopColor: '#333', alignItems: 'center', backgroundColor: '#000' },
+  footerText: { color: '#999' },
   members: { marginTop: 12 },
-  member: { marginBottom: 12, padding: 12, borderWidth: 1, borderColor: '#eee', borderRadius: 8 },
-  memberName: { fontWeight: '700' },
-  memberRole: { color: '#444', marginBottom: 6 },
-  memberEmail: { color: '#0066cc' },
+  member: { marginBottom: 12, padding: 12, borderWidth: 1, borderColor: '#333', borderRadius: 8, backgroundColor: '#111' },
+  memberName: { fontWeight: '700', color: '#c2872f' },
+  memberRole: { color: '#ccc', marginBottom: 6 },
+  memberEmail: { color: '#c2872f' },
   yearRow: { flexDirection: 'row', alignItems: 'center', marginTop: 8 },
-  yearLabel: { marginRight: 8, color: '#333' },
-  yearInput: { borderWidth: 1, borderColor: '#ddd', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 6, minWidth: 160 }
+  yearLabel: { marginRight: 8, color: '#ccc' },
+  yearInput: { borderWidth: 1, borderColor: '#444', paddingHorizontal: 8, paddingVertical: 6, borderRadius: 6, minWidth: 160, backgroundColor: '#1a1a1a', color: '#fff' }
 });
