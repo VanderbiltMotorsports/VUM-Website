@@ -6,6 +6,8 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "assetBundlePatterns": ["**/*"],
-    "web": {}
+    "web": {
+      "bundler": "metro"
+    }
   }
 }
