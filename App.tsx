@@ -79,8 +79,8 @@ function NavButton({ label, onPress, active }: { label: string; onPress: () => v
 }
 
 function Home() {
-  // Replace with your image URL
-  const CAR_IMAGE_URL = 'https://via.placeholder.com/600x400?text=VUM+Car+Photo';
+  // Reference to the car photo in assets folder
+  const CAR_IMAGE_URL = require('./assets/VUM 2026 Cover.JPG');
 
   return (
     <View style={styles.page}>
@@ -88,7 +88,7 @@ function Home() {
       
       <View style={styles.photoContainer}>
         <Image 
-          source={{ uri: CAR_IMAGE_URL }} 
+          source={CAR_IMAGE_URL} 
           style={styles.photo}
           accessible={true}
           accessibilityLabel="Vanderbilt University Motorsports race car"
