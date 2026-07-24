@@ -170,9 +170,13 @@ function Contact() {
   const MemberCard = ({ member }: { member: Member }) => (
     <View style={styles.member}>
       <Text style={styles.memberName}>{member.name}</Text>
-      <Text style={styles.memberRole}>{member.role}</Text>
-      <Text style={styles.memberMajor}>{member.major}</Text>
-      <Text style={styles.memberYear}>{member.year}</Text>
+      {member.category !== 'faculty' && (
+        <>
+          <Text style={styles.memberRole}>{member.role}</Text>
+          <Text style={styles.memberMajor}>{member.major}</Text>
+          <Text style={styles.memberYear}>{member.year}</Text>
+        </>
+      )}
       <Pressable onPress={() => openMail(member.email)}>
         <Text style={styles.memberEmail}>{member.email}</Text>
       </Pressable>
