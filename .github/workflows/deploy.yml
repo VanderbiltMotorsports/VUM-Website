@@ -28,11 +28,11 @@ jobs:
       
       - run: npm install
       
-      - run: npm run build:web
+      - run: npx expo export --platform web
       
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: web-build
+          path: dist
 
   deploy:
     environment:
