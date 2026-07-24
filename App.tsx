@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Pressable, Linking, ScrollView, Platform } from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, Pressable, Linking, ScrollView, Platform, Image } from 'react-native';
 
 type Route = 'home' | 'car' | 'sponsor' | 'contact';
 
@@ -79,9 +79,22 @@ function NavButton({ label, onPress, active }: { label: string; onPress: () => v
 }
 
 function Home() {
+  // Replace with your image URL
+  const CAR_IMAGE_URL = 'https://via.placeholder.com/600x400?text=VUM+Car+Photo';
+
   return (
     <View style={styles.page}>
       <Text style={styles.title}>Welcome to Vanderbilt University Motorsports</Text>
+      
+      <View style={styles.photoContainer}>
+        <Image 
+          source={{ uri: CAR_IMAGE_URL }} 
+          style={styles.photo}
+          accessible
+          accessibilityLabel="Vanderbilt University Motorsports race car"
+        />
+      </View>
+
       <Text style={styles.paragraph}>
         Vanderbilt University Motorsports (VUM) is a student-led engineering team at Vanderbilt University. We design, build, and compete with formula-style race cars
         in collegiate motorsport competitions. Our mission is to provide hands-on engineering experience, promote STEM education, and represent Vanderbilt with
@@ -229,6 +242,8 @@ const styles = StyleSheet.create({
   navButtonTextActive: { color: '#000' },
   content: { padding: 24, paddingBottom: 120, backgroundColor: '#000' },
   page: { maxWidth: 900, alignSelf: 'center' },
+  photoContainer: { marginBottom: 20, borderRadius: 8, overflow: 'hidden', borderWidth: 2, borderColor: '#c2872f' },
+  photo: { width: '100%', height: 400, resizeMode: 'cover' },
   title: { fontSize: 28, fontWeight: '800', marginBottom: 12, color: '#c2872f' },
   subtitle: { fontSize: 18, fontWeight: '700', marginTop: 12, marginBottom: 6, color: '#c2872f' },
   paragraph: { fontSize: 16, color: '#fff', lineHeight: 22, marginBottom: 8 },
