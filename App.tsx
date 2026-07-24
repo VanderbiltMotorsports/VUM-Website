@@ -90,7 +90,7 @@ function Home() {
         <Image 
           source={{ uri: CAR_IMAGE_URL }} 
           style={styles.photo}
-          accessible
+          accessible={true}
           accessibilityLabel="Vanderbilt University Motorsports race car"
         />
       </View>
