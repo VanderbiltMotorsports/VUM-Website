@@ -148,6 +148,7 @@ function Car() {
 
 function Sponsor() {
   const openEmail = () => Linking.openURL('mailto:vanderbiltmotorsports@vanderbilt.edu?subject=VUM+Sponsorship');
+  const openDonate = () => Linking.openURL('https://anchorlink.vanderbilt.edu/organization/vumotorsports');
 
   return (
     <View style={styles.page}>
@@ -173,6 +174,14 @@ function Sponsor() {
       <Text style={styles.paragraph}>
         We also welcome in-kind support such as materials, machining time, software licenses, and mentorship. Thank you for considering supporting VUM.
       </Text>
+
+      <Text style={styles.subtitle}>Donations</Text>
+      <Text style={styles.paragraph}>If you are interesting in donating to the team, click below:</Text>
+
+      <Pressable style={styles.sponsorButton} onPress={openDonate}>
+        <Text style={styles.sponsorButtonText}>Donate</Text>
+      </Pressable>
+      
     </View>
   );
 }
