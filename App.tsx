@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Pressable, Linking, ScrollView, Platform, Image } from 'react-native';
-import VUMCoverPhoto from './assets/VUM 2026 Cover.JPG';
 
 type Route = 'home' | 'car' | 'sponsor' | 'contact';
 
@@ -86,7 +85,7 @@ function Home() {
       
       <View style={styles.photoContainer}>
         <Image 
-          source={VUMCoverPhoto} 
+          source={{ uri: 'https://via.placeholder.com/600x400?text=VUM+Car+Photo' }} 
           style={styles.photo}
           accessible={true}
           accessibilityLabel="Vanderbilt University Motorsports race car"
