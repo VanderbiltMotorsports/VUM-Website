@@ -124,7 +124,7 @@ function Car() {
 
       <View style={styles.photoContainer}>
         <Image 
-          source={require('./assets/VUM-2026-Car.jpg')} 
+          source={require('./assets/VUM_2026_Car.jpeg')} 
           style={styles.photo}
           accessible={true}
           accessibilityLabel="Vanderbilt University Motorsports race car"
