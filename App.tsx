@@ -147,7 +147,7 @@ function Car() {
 }
 
 function Sponsor() {
-  const openEmail = () => Linking.openURL('mailto:sponsor@vum.example.edu?subject=VUM+Sponsorship');
+  const openEmail = () => Linking.openURL('mailto:vanderbiltmotorsports@vanderbilt.edu?subject=VUM+Sponsorship');
 
   return (
     <View style={styles.page}>
@@ -167,7 +167,7 @@ function Sponsor() {
       <Text style={styles.paragraph}>For sponsorship inquiries and custom packages, email us:</Text>
 
       <Pressable style={styles.sponsorButton} onPress={openEmail}>
-        <Text style={styles.sponsorButtonText}>Email our Sponsorship Team</Text>
+        <Text style={styles.sponsorButtonText}>Email our Team</Text>
       </Pressable>
 
       <Text style={styles.paragraph}>
