@@ -104,7 +104,7 @@ function Home() {
         racecar. Students gain experience in CAD, manufacturing, testing, data acquisition, and project management.
       </Text>
 
-      <Text style={styles.subtitle}>Get involved</Text>
+      <Text style={styles.subtitle}>Get Involved</Text>
       <Text style={styles.paragraph}>
         We welcome students from all majors. If you're interested in joining, check the Contact page to reach out to team members or visit our Sponsorship page
         to support the program.
