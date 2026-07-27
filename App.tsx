@@ -122,6 +122,15 @@ function Car() {
         VU-83 is the car that the team used at the Formula SAE IC Michigan 2026 competition at Michigan International Speedway. 
       </Text>
 
+      <View style={styles.photoContainer}>
+        <Image 
+          source={require('./assets/VUM-2026-Car.jpg')} 
+          style={styles.photo}
+          accessible={true}
+          accessibilityLabel="Vanderbilt University Motorsports race car"
+        />
+      </View>
+      
       <Text style={styles.subtitle}>Key Specifications</Text>
       <Text style={styles.paragraph}>• Chassis: Carbon fiber monocoque (prototype)</Text>
       <Text style={styles.paragraph}>• Powertrain: 600cc 4-stroke engine with ECU mapping and data logging</Text>
