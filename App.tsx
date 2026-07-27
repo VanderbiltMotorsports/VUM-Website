@@ -98,9 +98,9 @@ function Home() {
         innovation and performance.
       </Text>
 
-      <Text style={styles.subtitle}>What we do</Text>
+      <Text style={styles.subtitle}>What We Do</Text>
       <Text style={styles.paragraph}>
-        Each year our multidisciplinary team of undergraduates works across chassis, powertrain, aerodynamics, electronics, and business to produce a competitive
+        Each year our multidisciplinary team of undergraduates works across chassis, powertrain, electronics, and business to produce a competitive
         racecar. Students gain experience in CAD, manufacturing, testing, data acquisition, and project management.
       </Text>
 
