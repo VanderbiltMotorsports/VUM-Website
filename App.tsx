@@ -116,24 +116,22 @@ function Home() {
 function Car() {
   return (
     <View style={styles.page}>
-      <Text style={styles.title}>Current Car — VUM-01</Text>
+      <Text style={styles.title}>Current Car — VU-83</Text>
 
       <Text style={styles.paragraph}>
-        VUM-01 is our latest single-seat formula-style car designed for the collegiate Formula SAE-style competitions. It features a lightweight composite chassis,
-        optimized aerodynamics package, and a high-efficiency powertrain tuned for track performance.
+        VU-83 is the car that the team used at the Formula SAE IC Michigan 2026 competition at Michigan International Speedway. 
       </Text>
 
-      <Text style={styles.subtitle}>Key specifications</Text>
+      <Text style={styles.subtitle}>Key Specifications</Text>
       <Text style={styles.paragraph}>• Chassis: Carbon fiber monocoque (prototype)</Text>
       <Text style={styles.paragraph}>• Powertrain: 600cc 4-stroke engine with ECU mapping and data logging</Text>
       <Text style={styles.paragraph}>• Aerodynamics: Front and rear wings with undertray for balanced downforce</Text>
       <Text style={styles.paragraph}>• Suspension: Double-wishbone adjustable dampers</Text>
       <Text style={styles.paragraph}>• Brakes: Lightweight ventilated discs with custom calipers</Text>
 
-      <Text style={styles.subtitle}>Recent highlights</Text>
+      <Text style={styles.subtitle}>Recent Highlights</Text>
       <Text style={styles.paragraph}>
-        VUM-01 completed initial dynamic tests in spring and showed promising lap times during endurance shakedowns. We continue to iterate on aero and
-        suspension setups to improve consistency and tire management.
+        VU-83 brought home 3rd place in efficiency in a field of over 110 teams. It was awarded for efficiently using fuel over the set distance, made possible by having the lightest car in the competition by around 40 lbs.
       </Text>
     </View>
   );
