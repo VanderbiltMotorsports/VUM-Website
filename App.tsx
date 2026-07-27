@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, View, Text, StyleSheet, Pressable, Linking, ScrollView, Platform, Image } from 'react-native';
+import VUMCoverPhoto from './assets/VUM 2026 Cover.JPG';
 
 type Route = 'home' | 'car' | 'sponsor' | 'contact';
 
@@ -79,16 +80,13 @@ function NavButton({ label, onPress, active }: { label: string; onPress: () => v
 }
 
 function Home() {
-  // Reference to the car photo in assets folder
-  const CAR_IMAGE_URL = require('./assets/VUM 2026 Cover.JPG');
-
   return (
     <View style={styles.page}>
       <Text style={styles.title}>Welcome to Vanderbilt University Motorsports</Text>
       
       <View style={styles.photoContainer}>
         <Image 
-          source={CAR_IMAGE_URL} 
+          source={VUMCoverPhoto} 
           style={styles.photo}
           accessible={true}
           accessibilityLabel="Vanderbilt University Motorsports race car"
