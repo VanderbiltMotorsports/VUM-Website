@@ -6,12 +6,20 @@ type Route = 'home' | 'car' | 'sponsor' | 'contact';
 type Member = { name: string; role: string; email: string; year: string; major: string; category: 'executive' | 'returning' | 'faculty' };
 
 const TEAM_MEMBERS: Member[] = [
-  { name: 'Sebastien Jacques', role: 'President', email: 'avery.smith@vum.example.edu', year: 'Senior', major: 'Mechanical Engineering', category: 'executive' },
-  { name: 'Manu Thomas', role: 'Vice President', email: 'jordan.lee@vum.example.edu', year: 'Junior', major: 'Mechanical Engineering', category: 'executive' },
-  { name: 'Kriti Lohiya', role: 'Secretary', email: 'taylor.nguyen@vum.example.edu', year: 'Sophomore', major: 'Computer Engineering', category: 'executive' },
-  { name: 'Sarah Chen', role: 'Aerodynamics Lead', email: 'sarah.chen@vum.example.edu', year: 'Junior', major: 'Aerospace Engineering', category: 'returning' },
-  { name: 'Alex Rodriguez', role: 'Powertrain Lead', email: 'alex.rodriguez@vum.example.edu', year: 'Senior', major: 'Mechanical Engineering', category: 'returning' },
-  { name: 'Phil Davis', role: 'Faculty Advisor', email: 'riley.patel@vum.example.edu', year: 'Faculty', major: 'Engineering Faculty', category: 'faculty' }
+  { name: 'Sebastien Jacques', role: 'President', email: 'sebastien.f.jacques@vanderbilt.edu', year: 'Senior', major: 'Mechanical Engineering', category: 'executive' },
+  { name: 'Manu Thomas', role: 'Vice President', email: 'manu.thomas@vanderbilt.edu', year: 'Junior', major: 'Computer Science & Math', category: 'executive' },
+  { name: 'Kriti Lohiya', role: 'Secretary', email: 'kriti.lohiya@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'executive' },
+  { name: 'Ariel Alvarez', role: 'Member', email: 'ariel.j.alvarez@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'returning' },
+  { name: 'Caroline Daub', role: 'Member', email: 'caroline.a.daub@vanderbilt.edu', year: 'Junior', major: 'Mechanical Engineering & Cognitive Studies', category: 'returning' },
+  { name: 'Aytug Demir', role: 'Member', email: 'aytug.demir@vanderbilt.edu', year: 'Sophomore', major: 'Electrical and Computer Engineering', category: 'returning' },
+  { name: 'Rebeca Lin', role: 'Member', email: 'rebeca.lin@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'returning' },
+  { name: 'Daiwei Lu', role: 'Member', email: 'daiwei.lu@vanderbilt.edu', year: 'Graduate', major: 'Computer Science', category: 'returning' },
+  { name: 'Michael Ramirez', role: 'Member', email: 'michael.ramirez@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'returning' },
+  { name: 'Claire Spector', role: 'Member', email: 'claire.n.spector@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'returning' },
+  { name: 'Kat Stone', role: 'Member', email: 'katrina.m.stone@vanderbilt.edu', year: 'Junior', major: 'Human and Organizational Development', category: 'returning' },
+  { name: 'Allison Valji', role: 'Member', email: 'allison.l.valji@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'returning' },
+  { name: 'John Walther', role: 'Member', email: 'john.c.walther@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'returning' },
+  { name: 'Phil Davis', role: 'Faculty Advisor', email: 'philip.l.davis@vanderbilt.edu', year: 'Faculty', major: 'Engineering Faculty', category: 'faculty' }
 ];
 
 export default function App() {
