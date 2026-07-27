@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   content: { padding: 24, paddingBottom: 120, backgroundColor: '#000' },
   page: { maxWidth: 900, alignSelf: 'center' },
   photoContainer: { marginBottom: 20, borderRadius: 8, overflow: 'hidden', borderWidth: 2, borderColor: '#c2872f' },
-  photo: { width: 900, height: 600, resizeMode: 'cover' },
+  photo: { width: '100%', height: '66.7%', resizeMode: 'cover' },
   title: { fontSize: 28, fontWeight: '800', marginBottom: 12, color: '#c2872f' },
   subtitle: { fontSize: 18, fontWeight: '700', marginTop: 12, marginBottom: 6, color: '#c2872f' },
   paragraph: { fontSize: 16, color: '#fff', lineHeight: 22, marginBottom: 8 },
