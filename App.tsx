@@ -125,7 +125,7 @@ function Car() {
       <View style={styles.photoContainer}>
         <Image 
           source={require('./assets/VUM_2026_Car.jpeg')} 
-          style={styles.photo}
+          style={styles.carPhoto}
           accessible={true}
           accessibilityLabel="Vanderbilt University Motorsports race car"
         />
@@ -248,6 +248,7 @@ const styles = StyleSheet.create({
   page: { maxWidth: 900, alignSelf: 'center' },
   photoContainer: { marginBottom: 20, borderRadius: 8, overflow: 'hidden', borderWidth: 2, borderColor: '#c2872f' },
   photo: { width: '100%', height: 400, resizeMode: 'cover' },
+  carPhoto: { width: '100%', aspectRatio: 3 / 2, resizeMode: 'cover' },
   title: { fontSize: 28, fontWeight: '800', marginBottom: 12, color: '#c2872f' },
   subtitle: { fontSize: 18, fontWeight: '700', marginTop: 12, marginBottom: 6, color: '#c2872f' },
   paragraph: { fontSize: 16, color: '#fff', lineHeight: 22, marginBottom: 8 },
