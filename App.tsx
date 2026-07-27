@@ -79,6 +79,12 @@ function NavButton({ label, onPress, active }: { label: string; onPress: () => v
 }
 
 function Home() {
+  const openLinkedIn = () => Linking.openURL('https://www.linkedin.com/company/vanderbiltmotorsports/');
+  const openAnchorLink = () => Linking.openURL('https://anchorlink.vanderbilt.edu/organization/vumotorsports');
+  const openInstagram = () => Linking.openURL('https://www.instagram.com/vanderbilt_motorsports/');
+  const openTiktok = () => Linking.openURL('https://www.tiktok.com/@vanderbilt_motorsports');
+  const openEmail = () => Linking.openURL('mailto:vanderbiltmotorsports@vanderbilt.edu');
+  
   return (
     <View style={styles.page}>
       <Text style={styles.title}>Welcome to Vanderbilt University Motorsports</Text>
@@ -109,6 +115,30 @@ function Home() {
         We welcome students from all majors. If you're interested in joining, check the Contact page to reach out to team members or visit our Sponsorship page
         to support the program.
       </Text>
+
+      <Text style={styles.subtitle}>Links</Text>
+      <Text style={styles.paragraph}>Below are ways to connect to the team:</Text>
+
+      <Pressable style={styles.sponsorButton} onPress={openLinkedIn}>
+        <Text style={styles.sponsorButtonText}>Linkedin</Text>
+      </Pressable>
+
+      <Pressable style={styles.sponsorButton} onPress={openAnchorLink}>
+        <Text style={styles.sponsorButtonText}>AnchorLink</Text>
+      </Pressable>
+
+      <Pressable style={styles.sponsorButton} onPress={openInstagram}>
+        <Text style={styles.sponsorButtonText}>Instagram</Text>
+      </Pressable>
+
+      <Pressable style={styles.sponsorButton} onPress={openTiktok}>
+        <Text style={styles.sponsorButtonText}>TikTok</Text>
+      </Pressable>
+
+      <Pressable style={styles.sponsorButton} onPress={openEmail}>
+        <Text style={styles.sponsorButtonText}>Email</Text>
+      </Pressable>
+      
     </View>
   );
 }
