@@ -85,7 +85,7 @@ function Home() {
       
       <View style={styles.photoContainer}>
         <Image 
-          source={{ uri: 'https://via.placeholder.com/600x400?text=VUM+Car+Photo' }} 
+          source={{ uri: 'https://images.unsplash.com/photo-1488662996442-48b0d259b313?w=600&h=400&fit=crop' }} 
           style={styles.photo}
           accessible={true}
           accessibilityLabel="Vanderbilt University Motorsports race car"
