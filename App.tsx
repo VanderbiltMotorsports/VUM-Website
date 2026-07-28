@@ -178,7 +178,6 @@ function Car() {
           accessibilityLabel="Vanderbilt University Motorsports race car"
         />
       </View>
-    </View>
       
       <Text style={styles.subtitle}>Key Specifications</Text>
       <Text style={styles.paragraph}>• Chassis: Hand-assembled steel tubing</Text>
