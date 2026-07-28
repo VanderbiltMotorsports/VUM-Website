@@ -305,7 +305,7 @@ const styles = StyleSheet.create({
   page: { maxWidth: 900, alignSelf: 'center' },
   photoContainer: { marginBottom: 20, borderRadius: 8, overflow: 'hidden', borderWidth: 2, borderColor: '#a89669' },
   photo: { width: '100%', height: 400, resizeMode: 'cover' },
-  carPhoto: { width: '100%', height: 600, resizeMode: 'cover' },
+  carPhoto: { width: '100%', aspectRatio: 4 / 3, resizeMode: 'cover' },
   title: { fontSize: 28, fontWeight: '800', marginBottom: 12, color: '#a89669' },
   subtitle: { fontSize: 18, fontWeight: '700', marginTop: 12, marginBottom: 6, color: '#a89669' },
   paragraph: { fontSize: 16, color: '#fff', lineHeight: 22, marginBottom: 8 },
