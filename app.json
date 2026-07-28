@@ -6,9 +6,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "assetBundlePatterns": ["**/*"],
-    "web": {
-      "bundler": "metro",
-      "output": "dist"
-    }
+    "web": { "bundler": "metro", "output": "single", "favicon": "./assets/VUM-logo.jpg" },
+"experiments": { "baseUrl": "/VUM-Website" }
   }
 }
