@@ -178,9 +178,8 @@ function Car() {
       </View>
       
       <Text style={styles.subtitle}>Key Specifications</Text>
-      <Text style={styles.paragraph}>• Chassis: Carbon fiber monocoque (prototype)</Text>
-      <Text style={styles.paragraph}>• Powertrain: 600cc 4-stroke engine with ECU mapping and data logging</Text>
-      <Text style={styles.paragraph}>• Aerodynamics: Front and rear wings with undertray for balanced downforce</Text>
+      <Text style={styles.paragraph}>• Chassis: Hand-assembled steel tubing</Text>
+      <Text style={styles.paragraph}>• Powertrain: 439cc Yamaha YFZ450S</Text>
       <Text style={styles.paragraph}>• Suspension: Double-wishbone adjustable dampers</Text>
       <Text style={styles.paragraph}>• Brakes: Lightweight ventilated discs with custom calipers</Text>
 
@@ -201,11 +200,16 @@ function Sponsor() {
       <Text style={styles.title}>Support Vanderbilt University Motorsports</Text>
 
       <Text style={styles.paragraph}>
-        Sponsorship helps our students purchase parts, access manufacturing resources, attend competitions, and focus on engineering education. We offer
+        Sponsorships helps our students purchase parts, access manufacturing resources, attend competitions, and focus on engineering education. We offer
         corporate and individual sponsorship packages with recognition opportunities, testing access, and collaborative engineering projects.
       </Text>
 
-      <Text style={styles.subtitle}>Sponsorship tiers</Text>
+    
+      <Text style={styles.paragraph}>
+        We also welcome in-kind support such as materials, machining time, software licenses, and mentorship. Thank you for considering supporting VUM.
+      </Text>
+
+      <Text style={styles.subtitle}>Sponsorship Tiers</Text>
       <Text style={styles.paragraph}>• Bronze — Logo on team page, social media mention</Text>
       <Text style={styles.paragraph}>• Silver — Bronze benefits + logo on the car and event banners</Text>
       <Text style={styles.paragraph}>• Gold — Silver benefits + engineering collaboration and on-site demonstrations</Text>
@@ -216,10 +220,6 @@ function Sponsor() {
       <Pressable style={styles.sponsorButton} onPress={openEmail}>
         <Text style={styles.sponsorButtonText}>Email our Team</Text>
       </Pressable>
-
-      <Text style={styles.paragraph}>
-        We also welcome in-kind support such as materials, machining time, software licenses, and mentorship. Thank you for considering supporting VUM.
-      </Text>
 
       <Text style={styles.subtitle}>Donations</Text>
       <Text style={styles.paragraph}>If you are interesting in donating to the team, click below:</Text>
