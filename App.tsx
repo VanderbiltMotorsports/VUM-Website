@@ -56,11 +56,19 @@ export default function App() {
     <SafeAreaView style={styles.safe}>
       <View style={styles.header}>
         <Text style={styles.brand}>Vanderbilt University Motorsports</Text>
-        <View style={styles.nav}>
-          <NavButton label="Home" onPress={() => navigate('home')} active={route === 'home'} />
-          <NavButton label="Current Car" onPress={() => navigate('car')} active={route === 'car'} />
-          <NavButton label="Sponsorship" onPress={() => navigate('sponsor')} active={route === 'sponsor'} />
-          <NavButton label="Contact" onPress={() => navigate('contact')} active={route === 'contact'} />
+        <View style={styles.navRow}>
+          <View style={styles.nav}>
+            <NavButton label="Home" onPress={() => navigate('home')} active={route === 'home'} />
+            <NavButton label="Current Car" onPress={() => navigate('car')} active={route === 'car'} />
+            <NavButton label="Sponsorship" onPress={() => navigate('sponsor')} active={route === 'sponsor'} />
+            <NavButton label="Contact" onPress={() => navigate('contact')} active={route === 'contact'} />
+          </View>
+          <Image
+            source={require('./assets/VUM-logo.jpg')}
+            style={styles.logo}
+            accessible={true}
+            accessibilityLabel="Vanderbilt University Motorsports logo"
+          />
         </View>
       </View>
 
@@ -280,7 +288,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#000'
   },
   brand: { color: '#c2872f', fontSize: 20, fontWeight: '700', marginBottom: 8 },
-  nav: { flexDirection: 'row', gap: 10 },
+  navRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
+  nav: { flexDirection: 'row', gap: 10, flexWrap: 'wrap' },
+  logo: { width: 48, height: 48, borderRadius: 24, marginLeft: 12 },
   navButton: {
     paddingVertical: 8,
     paddingHorizontal: 12,
