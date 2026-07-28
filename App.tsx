@@ -112,7 +112,7 @@ function Home() {
       >
         <Image 
           source={require('./assets/VUM-2026-Cover.jpg')} 
-          style={[styles.photo, { height: photoWidth * (9 / 16) }]}
+          style={[styles.photo, { height: photoWidth * (1 / 2) }]}
           accessible={true}
           accessibilityLabel="Vanderbilt University Motorsports race car"
         />
