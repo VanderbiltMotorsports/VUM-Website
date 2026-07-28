@@ -160,22 +160,25 @@ function Home() {
 }
 
 function Car() {
+  const [photoWidth, setPhotoWidth] = useState(0);
+
   return (
     <View style={styles.page}>
       <Text style={styles.title}>Current Car — VU-83</Text>
+      <Text style={styles.paragraph}>VU-83 is the car that the team used at the Formula SAE IC Michigan 2026 competition at Michigan International Speedway.</Text>
 
-      <Text style={styles.paragraph}>
-        VU-83 is the car that the team used at the Formula SAE IC Michigan 2026 competition at Michigan International Speedway. 
-      </Text>
-
-      <View style={styles.photoContainer}>
-        <Image 
-          source={require('./assets/VUM_2026_Car.jpeg')} 
-          style={styles.carPhoto}
+      <View
+        style={styles.photoContainer}
+        onLayout={(e) => setPhotoWidth(e.nativeEvent.layout.width)}
+      >
+        <Image
+          source={require('./assets/VUM_2026_Car.jpeg')}
+          style={[styles.carPhoto, { height: photoWidth * (2 / 3) }]}
           accessible={true}
           accessibilityLabel="Vanderbilt University Motorsports race car"
         />
       </View>
+    </View>
       
       <Text style={styles.subtitle}>Key Specifications</Text>
       <Text style={styles.paragraph}>• Chassis: Hand-assembled steel tubing</Text>
@@ -305,7 +308,7 @@ const styles = StyleSheet.create({
   page: { maxWidth: 900, alignSelf: 'center' },
   photoContainer: { marginBottom: 20, borderRadius: 8, overflow: 'hidden', borderWidth: 2, borderColor: '#a89669' },
   photo: { width: '100%', height: 400, resizeMode: 'cover' },
-  carPhoto: { width: '100%', aspectRatio: 4 / 3, resizeMode: 'cover' },
+  carPhoto: { width: '100%', resizeMode: 'cover' },
   title: { fontSize: 28, fontWeight: '800', marginBottom: 12, color: '#a89669' },
   subtitle: { fontSize: 18, fontWeight: '700', marginTop: 12, marginBottom: 6, color: '#a89669' },
   paragraph: { fontSize: 16, color: '#fff', lineHeight: 22, marginBottom: 8 },
