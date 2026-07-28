@@ -95,6 +95,7 @@ function NavButton({ label, onPress, active }: { label: string; onPress: () => v
 }
 
 function Home() {
+  const [photoWidth, setPhotoWidth] = useState(0);
   const openLinkedIn = () => Linking.openURL('https://www.linkedin.com/company/vanderbiltmotorsports/');
   const openAnchorLink = () => Linking.openURL('https://anchorlink.vanderbilt.edu/organization/vumotorsports');
   const openInstagram = () => Linking.openURL('https://www.instagram.com/vanderbilt_motorsports/');
@@ -105,10 +106,13 @@ function Home() {
     <View style={styles.page}>
       <Text style={styles.title}>Welcome to Vanderbilt University Motorsports</Text>
       
-      <View style={styles.photoContainer}>
+      <View
+        style={styles.photoContainer}
+        onLayout={(e) => setPhotoWidth(e.nativeEvent.layout.width)}
+      >
         <Image 
           source={require('./assets/VUM-2026-Cover.jpg')} 
-          style={styles.photo}
+          style={[styles.photo, { height: photoWidth * (9 / 16) }]}
           accessible={true}
           accessibilityLabel="Vanderbilt University Motorsports race car"
         />
@@ -306,7 +310,7 @@ const styles = StyleSheet.create({
   content: { padding: 24, paddingBottom: 120, backgroundColor: '#000' },
   page: { maxWidth: 900, alignSelf: 'center' },
   photoContainer: { marginBottom: 20, borderRadius: 8, overflow: 'hidden', borderWidth: 2, borderColor: '#a89669' },
-  photo: { width: '100%', height: 400, resizeMode: 'cover' },
+  photo: { width: '100%', resizeMode: 'cover' },
   carPhoto: { width: '100%', resizeMode: 'cover' },
   title: { fontSize: 28, fontWeight: '800', marginBottom: 12, color: '#a89669' },
   subtitle: { fontSize: 18, fontWeight: '700', marginTop: 12, marginBottom: 6, color: '#a89669' },
