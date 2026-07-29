@@ -8,8 +8,18 @@ pnpm-lock.yaml
 .expo/
 .expo-shared/
 web-build/
+dist/
 .android/
 .ios/
+
+# Large source media for the silhouette pipeline — keep the script, not the
+# raw competition photos (the generated assets/car-silhouette.png is committed).
+dev-assets/*.jpg
+dev-assets/*.jpeg
+dev-assets/*.JPG
+dev-assets/*.JPEG
+dev-assets/*.png
+dev-assets/*.PNG
 
 # Misc
 .env

@@ -2,18 +2,32 @@
   "compilerOptions": {
     "target": "ESNext",
     "module": "ESNext",
-    "lib": ["DOM", "ESNext"],
-    "jsx": "react",
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
+    "jsx": "react-jsx",
     "allowJs": true,
     "noEmit": true,
     "isolatedModules": true,
     "strict": true,
-    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true,
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "baseUrl": ".",
     "paths": {
-      "src/*": ["src/*"]
+      "src/*": [
+        "src/*"
+      ]
     }
   },
-  "exclude": ["node_modules", "babel.config.js", "metro.config.js", "webpack.config.js"]
+  "exclude": [
+    "node_modules",
+    "babel.config.js",
+    "metro.config.js",
+    "webpack.config.js"
+  ],
+  "extends": "expo/tsconfig.base"
 }
