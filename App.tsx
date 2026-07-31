@@ -153,10 +153,15 @@ function NavButton({ label, onPress, active }: { label: string; onPress: () => v
 
 type BtnIcon = { set: 'fa' | 'feather'; name: string; brand?: boolean };
 
-function Btn({ label, onPress, variant = 'primary', icon }: { label: string; onPress: () => void; variant?: 'primary' | 'ghost'; icon?: BtnIcon }) {
+function Btn({ label, onPress, variant = 'primary', icon, iconPosition = 'left' }: { label: string; onPress: () => void; variant?: 'primary' | 'ghost'; icon?: BtnIcon; iconPosition?: 'left' | 'right' }) {
   const [hover, setHover] = useState(false);
   const ghost = variant === 'ghost';
   const iconColor = ghost ? (hover ? GOLD_HI : TEXT) : '#000';
+  const iconEl = icon ? (
+    icon.set === 'fa'
+      ? <FontAwesome6 name={icon.name as any} size={15} color={iconColor} brand={icon.brand} />
+      : <Feather name={icon.name as any} size={15} color={iconColor} />
+  ) : null;
   return (
     <Pressable
       onPress={onPress}
@@ -170,14 +175,11 @@ function Btn({ label, onPress, variant = 'primary', icon }: { label: string; onP
       ]}
     >
       <View style={styles.btnInner}>
-        {icon ? (
-          icon.set === 'fa'
-            ? <FontAwesome6 name={icon.name as any} size={15} color={iconColor} brand={icon.brand} />
-            : <Feather name={icon.name as any} size={15} color={iconColor} />
-        ) : null}
+        {iconPosition === 'left' ? iconEl : null}
         <Text style={[styles.btnText, ghost ? styles.btnTextGhost : styles.btnTextPrimary, hover && ghost && styles.btnTextGhostHover]}>
           {label}
         </Text>
+        {iconPosition === 'right' ? iconEl : null}
       </View>
     </Pressable>
   );
@@ -204,6 +206,7 @@ function Home({ navigate }: { navigate: (r: Route) => void }) {
   const openInstagram = () => Linking.openURL('https://www.instagram.com/vanderbilt_motorsports/');
   const openTiktok = () => Linking.openURL('https://www.tiktok.com/@vanderbilt_motorsports');
   const openEmail = () => Linking.openURL('mailto:vanderbiltmotorsports@vanderbilt.edu');
+  const openInterestForm = () => Linking.openURL('https://docs.google.com/forms/d/e/1FAIpQLSeA5cOb4lWqXWD9NSBa_KXdz_cUqbWSGDK7P5BQ_mZV_X8fwQ/viewform');
 
   const stageHeight = width ? Math.max(240, Math.min(width, 940) * 0.5) : 320;
   const titleSize = width ? Math.max(34, Math.min(60, width * 0.085)) : 44;
@@ -270,6 +273,7 @@ function Home({ navigate }: { navigate: (r: Route) => void }) {
           <Btn label="Instagram" variant="ghost" icon={{ set: 'fa', name: 'instagram', brand: true }} onPress={openInstagram} />
           <Btn label="TikTok" variant="ghost" icon={{ set: 'fa', name: 'tiktok', brand: true }} onPress={openTiktok} />
           <Btn label="Email" variant="ghost" icon={{ set: 'feather', name: 'mail' }} onPress={openEmail} />
+          <Btn label="Interest Form" variant="ghost" icon={{ set: 'feather', name: 'edit-3' }} onPress={openInterestForm} />
         </View>
       </Reveal>
     </View>
