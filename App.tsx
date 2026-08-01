@@ -17,6 +17,7 @@ const TEXT = '#ececec';
 const MUTED = '#9a9a9a';
 const DISPLAY = Platform.OS === 'web' ? '"Saira Condensed", "Arial Narrow", sans-serif' : undefined;
 const SANS = Platform.OS === 'web' ? '"Saira", system-ui, sans-serif' : undefined;
+const INTEREST_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeA5cOb4lWqXWD9NSBa_KXdz_cUqbWSGDK7P5BQ_mZV_X8fwQ/viewform';
 
 // The extracted VU-83 cutout (transparent PNG) used by the hero particle field.
 // react-native-web returns a string/object from require(); native exposes
@@ -36,7 +37,7 @@ const CAR_URI = resolveUri(CAR_SILHOUETTE);
 
 injectWebStyles();
 
-type Route = 'home' | 'car' | 'sponsor' | 'contact';
+type Route = 'home' | 'car' | 'sponsor' | 'contact' | 'interest';
 
 type Member = { name: string; role: string; email: string; year: string; major: string; category: 'executive' | 'returning' | 'faculty' };
 
@@ -67,7 +68,7 @@ export default function App() {
     if (Platform.OS === 'web' && typeof window !== 'undefined') {
       const getRouteFromHash = () => {
         const hash = window.location.hash.replace('#', '');
-        if (hash === 'car' || hash === 'sponsor' || hash === 'contact') {
+        if (hash === 'car' || hash === 'sponsor' || hash === 'contact' || hash === 'interest') {
           return hash as Route;
         }
         return 'home' as Route;
@@ -116,6 +117,11 @@ export default function App() {
             <NavButton label={narrow ? 'Car' : 'Current Car'} onPress={() => navigate('car')} active={route === 'car'} />
             <NavButton label={narrow ? 'Sponsor' : 'Sponsorship'} onPress={() => navigate('sponsor')} active={route === 'sponsor'} />
             <NavButton label="Contact" onPress={() => navigate('contact')} active={route === 'contact'} />
+            <NavButton
+              label={narrow ? 'Interest' : 'Interest Form'}
+              onPress={() => navigate('interest')}
+              active={route === 'interest'}
+            />
           </View>
         </View>
       </View>
@@ -126,6 +132,7 @@ export default function App() {
           {route === 'car' && <Car />}
           {route === 'sponsor' && <Sponsor />}
           {route === 'contact' && <Contact />}
+          {route === 'interest' && <InterestForm />}
         </Animated.View>
       </ScrollView>
 
@@ -206,7 +213,6 @@ function Home({ navigate }: { navigate: (r: Route) => void }) {
   const openInstagram = () => Linking.openURL('https://www.instagram.com/vanderbilt_motorsports/');
   const openTiktok = () => Linking.openURL('https://www.tiktok.com/@vanderbilt_motorsports');
   const openEmail = () => Linking.openURL('mailto:vanderbiltmotorsports@vanderbilt.edu');
-  const openInterestForm = () => Linking.openURL('https://docs.google.com/forms/d/e/1FAIpQLSeA5cOb4lWqXWD9NSBa_KXdz_cUqbWSGDK7P5BQ_mZV_X8fwQ/viewform');
 
   const stageHeight = width ? Math.max(240, Math.min(width, 940) * 0.5) : 320;
   const titleSize = width ? Math.max(34, Math.min(60, width * 0.085)) : 44;
@@ -273,7 +279,7 @@ function Home({ navigate }: { navigate: (r: Route) => void }) {
           <Btn label="Instagram" variant="ghost" icon={{ set: 'fa', name: 'instagram', brand: true }} onPress={openInstagram} />
           <Btn label="TikTok" variant="ghost" icon={{ set: 'fa', name: 'tiktok', brand: true }} onPress={openTiktok} />
           <Btn label="Email" variant="ghost" icon={{ set: 'feather', name: 'mail' }} onPress={openEmail} />
-          <Btn label="Interest Form" variant="ghost" icon={{ set: 'feather', name: 'edit-3' }} onPress={openInterestForm} />
+          <Btn label="Interest Form" variant="ghost" icon={{ set: 'feather', name: 'edit-3' }} onPress={() => navigate('interest')} />
         </View>
       </Reveal>
     </View>
@@ -429,6 +435,36 @@ function Contact() {
   );
 }
 
+function InterestForm() {
+  return (
+    <View style={styles.page}>
+      <Reveal>
+        <Text style={styles.eyebrow}>JOIN THE TEAM</Text>
+        <Text style={styles.title}>Interest Form</Text>
+        <Text style={styles.paragraph}>
+          Interested in Vanderbilt University Motorsports? Complete the form below to tell us about yourself.
+        </Text>
+      </Reveal>
+
+      {Platform.OS === 'web' ? (
+        <View style={styles.formFrame}>
+          {React.createElement('iframe', {
+            src: `${INTEREST_FORM_URL}?embedded=true`,
+            title: 'Vanderbilt University Motorsports Interest Form',
+            style: { width: '100%', height: '100%', border: 0, backgroundColor: '#fff' },
+          })}
+        </View>
+      ) : (
+        <Btn
+          label="Open Interest Form"
+          icon={{ set: 'feather', name: 'edit-3' }}
+          onPress={() => Linking.openURL(INTEREST_FORM_URL)}
+        />
+      )}
+    </View>
+  );
+}
+
 const transition = Platform.OS === 'web'
   ? { transitionProperty: 'transform, background-color, border-color, color, opacity, box-shadow', transitionDuration: '200ms', transitionTimingFunction: 'cubic-bezier(.2,.7,.2,1)' } as any
   : {};
@@ -499,6 +535,9 @@ const styles = StyleSheet.create({
   // Cover images
   coverWrap: { marginBottom: 22, borderRadius: 12, overflow: 'hidden', borderWidth: 1, borderColor: BORDER },
   cover: { width: '100%', resizeMode: 'cover' },
+
+  // Embedded interest form
+  formFrame: { width: '100%', height: 900, marginTop: 14, borderRadius: 12, overflow: 'hidden', borderWidth: 1, borderColor: BORDER, backgroundColor: '#fff' },
 
   // Typography
   title: { fontSize: 40, fontWeight: '800', marginBottom: 12, color: '#fff', letterSpacing: 0.5, fontFamily: DISPLAY },
