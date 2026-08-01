@@ -118,7 +118,7 @@ export default function App() {
             <NavButton label={narrow ? 'Sponsor' : 'Sponsorship'} onPress={() => navigate('sponsor')} active={route === 'sponsor'} />
             <NavButton label="Contact" onPress={() => navigate('contact')} active={route === 'contact'} />
             <NavButton
-              label={narrow ? 'Interest' : 'Interest Form'}
+              label="Interest Form"
               onPress={() => navigate('interest')}
               active={route === 'interest'}
             />
