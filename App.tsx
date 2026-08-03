@@ -112,15 +112,16 @@ export default function App() {
               {narrow ? 'VANDERBILT MOTORSPORTS' : 'VANDERBILT UNIVERSITY MOTORSPORTS'}
             </Text>
           </Pressable>
-          <View style={styles.nav}>
-            <NavButton label="Home" onPress={() => navigate('home')} active={route === 'home'} />
-            <NavButton label={narrow ? 'Car' : 'Current Car'} onPress={() => navigate('car')} active={route === 'car'} />
-            <NavButton label={narrow ? 'Sponsor' : 'Sponsorship'} onPress={() => navigate('sponsor')} active={route === 'sponsor'} />
-            <NavButton label="Contact" onPress={() => navigate('contact')} active={route === 'contact'} />
+          <View style={[styles.nav, narrow && styles.navNarrow]}>
+            <NavButton label="Home" onPress={() => navigate('home')} active={route === 'home'} narrow={narrow} />
+            <NavButton label={narrow ? 'Car' : 'Current Car'} onPress={() => navigate('car')} active={route === 'car'} narrow={narrow} />
+            <NavButton label={narrow ? 'Sponsor' : 'Sponsorship'} onPress={() => navigate('sponsor')} active={route === 'sponsor'} narrow={narrow} />
+            <NavButton label="Contact" onPress={() => navigate('contact')} active={route === 'contact'} narrow={narrow} />
             <NavButton
               label="Interest Form"
               onPress={() => navigate('interest')}
               active={route === 'interest'}
+              narrow={narrow}
             />
           </View>
         </View>
@@ -143,16 +144,16 @@ export default function App() {
   );
 }
 
-function NavButton({ label, onPress, active }: { label: string; onPress: () => void; active?: boolean }) {
+function NavButton({ label, onPress, active, narrow }: { label: string; onPress: () => void; active?: boolean; narrow?: boolean }) {
   const [hover, setHover] = useState(false);
   return (
     <Pressable
       onPress={onPress}
       onHoverIn={() => setHover(true)}
       onHoverOut={() => setHover(false)}
-      style={({ pressed }) => [styles.navButton, pressed && styles.navButtonPressed]}
+      style={({ pressed }) => [styles.navButton, narrow && styles.navButtonNarrow, pressed && styles.navButtonPressed]}
     >
-      <Text style={[styles.navButtonText, (active || hover) && styles.navButtonTextActive]}>{label}</Text>
+      <Text style={[styles.navButtonText, narrow && styles.navButtonTextNarrow, (active || hover) && styles.navButtonTextActive]}>{label}</Text>
       <View style={[styles.navUnderline, active ? styles.navUnderlineActive : hover && styles.navUnderlineHover]} />
     </Pressable>
   );
@@ -485,9 +486,12 @@ const styles = StyleSheet.create({
   brand: { color: GOLD, fontSize: 20, fontWeight: '800', marginBottom: 10, letterSpacing: 1, fontFamily: DISPLAY },
   brandNarrow: { fontSize: 15, marginBottom: 6, letterSpacing: 0.5 },
   nav: { flexDirection: 'row', gap: 4, flexWrap: 'wrap', alignItems: 'center' },
+  navNarrow: { flexWrap: 'nowrap', gap: 0, justifyContent: 'space-between', width: '100%' },
   navButton: { paddingVertical: 6, paddingHorizontal: 10, borderRadius: 6, ...transition },
+  navButtonNarrow: { paddingVertical: 4, paddingHorizontal: 2 },
   navButtonPressed: { opacity: 0.7 },
   navButtonText: { color: MUTED, fontWeight: '600', fontSize: 14, letterSpacing: 0.5, fontFamily: SANS, ...transition },
+  navButtonTextNarrow: { fontSize: 11, letterSpacing: 0 },
   navButtonTextActive: { color: GOLD_HI },
   navUnderline: { height: 2, marginTop: 5, borderRadius: 2, backgroundColor: 'transparent', ...transition },
   navUnderlineActive: { backgroundColor: GOLD },
