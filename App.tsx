@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { SafeAreaView, View, Text, StyleSheet, Pressable, Linking, ScrollView, Platform, Image, Animated, useWindowDimensions } from 'react-native';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import Feather from '@expo/vector-icons/Feather';
+import { SafeAreaView, View, Text, StyleSheet, Pressable, Linking, ScrollView, Platform, Animated, useWindowDimensions } from 'react-native';
+import { Icon, IconName } from './Icon';
 import { HeroCanvas } from './HeroCanvas';
 import { Reveal } from './Reveal';
+import { CoverImage } from './CoverImage';
+import { resolveUri } from './assetUri';
 import { injectWebStyles } from './webStyles';
 
 // Theme tokens
@@ -19,21 +20,8 @@ const DISPLAY = Platform.OS === 'web' ? '"Saira Condensed", "Arial Narrow", sans
 const SANS = Platform.OS === 'web' ? '"Saira", system-ui, sans-serif' : undefined;
 const INTEREST_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeA5cOb4lWqXWD9NSBa_KXdz_cUqbWSGDK7P5BQ_mZV_X8fwQ/viewform';
 
-// The extracted VU-83 cutout (transparent PNG) used by the hero particle field.
-// react-native-web returns a string/object from require(); native exposes
-// Image.resolveAssetSource. Handle all shapes without crashing on web.
-const CAR_SILHOUETTE: any = require('./assets/car-silhouette.png');
-function resolveUri(src: any): string | undefined {
-  if (!src) return undefined;
-  if (typeof src === 'string') return src;
-  if (typeof src === 'object' && src.uri) return src.uri as string;
-  const img = Image as any;
-  if (typeof img.resolveAssetSource === 'function') {
-    try { return img.resolveAssetSource(src)?.uri as string; } catch { /* ignore */ }
-  }
-  return undefined;
-}
-const CAR_URI = resolveUri(CAR_SILHOUETTE);
+// The extracted VU-83 cutout (transparent WebP) used by the hero particle field.
+const CAR_URI = resolveUri(require('./assets/car-silhouette.webp'));
 
 injectWebStyles();
 
@@ -159,17 +147,11 @@ function NavButton({ label, onPress, active, narrow }: { label: string; onPress:
   );
 }
 
-type BtnIcon = { set: 'fa' | 'feather'; name: string; brand?: boolean };
-
-function Btn({ label, onPress, variant = 'primary', icon, iconPosition = 'left' }: { label: string; onPress: () => void; variant?: 'primary' | 'ghost'; icon?: BtnIcon; iconPosition?: 'left' | 'right' }) {
+function Btn({ label, onPress, variant = 'primary', icon, iconPosition = 'left' }: { label: string; onPress: () => void; variant?: 'primary' | 'ghost'; icon?: IconName; iconPosition?: 'left' | 'right' }) {
   const [hover, setHover] = useState(false);
   const ghost = variant === 'ghost';
   const iconColor = ghost ? (hover ? GOLD_HI : TEXT) : '#000';
-  const iconEl = icon ? (
-    icon.set === 'fa'
-      ? <FontAwesome6 name={icon.name as any} size={15} color={iconColor} brand={icon.brand} />
-      : <Feather name={icon.name as any} size={15} color={iconColor} />
-  ) : null;
+  const iconEl = icon ? <Icon name={icon} size={15} color={iconColor} /> : null;
   return (
     <Pressable
       onPress={onPress}
@@ -207,6 +189,38 @@ function HoverCard({ children, style }: { children: React.ReactNode; style?: any
   );
 }
 
+// Recruiting announcement shown at the top of the home page. Delete this block
+// (and the <Announcement /> in Home) once the meetings have passed.
+const INTEREST_MEETINGS = [
+  { day: 'Monday, Aug 31', time: '7:30 PM' },
+  { day: 'Tuesday, Sep 1', time: '6:00 PM' },
+];
+
+function Announcement({ navigate }: { navigate: (r: Route) => void }) {
+  return (
+    <Reveal>
+      <View style={styles.announce}>
+        <Text style={styles.announceEyebrow}>UPCOMING</Text>
+        <Text style={styles.announceTitle}>Interest Meetings</Text>
+        <View style={styles.announceDates}>
+          {INTEREST_MEETINGS.map((m) => (
+            <View key={m.day} style={styles.announceDate}>
+              <Text style={styles.announceDay}>{m.day}</Text>
+              <Text style={styles.announceTime}>{m.time}</Text>
+            </View>
+          ))}
+        </View>
+        <Text style={styles.announceNote}>
+          Reminders and the location will be sent to everyone who has applied through the interest form.
+        </Text>
+        <View style={styles.announceCta}>
+          <Btn label="Interest Form" icon="edit" onPress={() => navigate('interest')} />
+        </View>
+      </View>
+    </Reveal>
+  );
+}
+
 function Home({ navigate }: { navigate: (r: Route) => void }) {
   const [width, setWidth] = useState(0);
   const openLinkedIn = () => Linking.openURL('https://www.linkedin.com/company/vanderbiltmotorsports/');
@@ -236,13 +250,14 @@ function Home({ navigate }: { navigate: (r: Route) => void }) {
         </View>
       </View>
 
+      <Announcement navigate={navigate} />
+
       <Reveal>
         <View style={styles.coverWrap}>
-          <Image
-            source={require('./assets/VUM-2026-Cover.jpg')}
-            style={[styles.cover, { height: (width || 300) * (1 / 2) }]}
-            accessible={true}
-            accessibilityLabel="Vanderbilt University Motorsports race car"
+          <CoverImage
+            source={require('./assets/VUM-2026-Cover.webp')}
+            height={(width || 300) * (1 / 2)}
+            alt="Vanderbilt University Motorsports race car"
           />
         </View>
       </Reveal>
@@ -275,12 +290,12 @@ function Home({ navigate }: { navigate: (r: Route) => void }) {
         <Text style={styles.subtitle}>Connect With Us</Text>
         <Text style={styles.paragraph}>Below are ways to connect to the team:</Text>
         <View style={styles.linkRow}>
-          <Btn label="LinkedIn" variant="ghost" icon={{ set: 'fa', name: 'linkedin', brand: true }} onPress={openLinkedIn} />
-          <Btn label="AnchorLink" variant="ghost" icon={{ set: 'feather', name: 'anchor' }} onPress={openAnchorLink} />
-          <Btn label="Instagram" variant="ghost" icon={{ set: 'fa', name: 'instagram', brand: true }} onPress={openInstagram} />
-          <Btn label="TikTok" variant="ghost" icon={{ set: 'fa', name: 'tiktok', brand: true }} onPress={openTiktok} />
-          <Btn label="Email" variant="ghost" icon={{ set: 'feather', name: 'mail' }} onPress={openEmail} />
-          <Btn label="Interest Form" variant="ghost" icon={{ set: 'feather', name: 'edit-3' }} onPress={() => navigate('interest')} />
+          <Btn label="LinkedIn" variant="ghost" icon="linkedin" onPress={openLinkedIn} />
+          <Btn label="AnchorLink" variant="ghost" icon="anchor" onPress={openAnchorLink} />
+          <Btn label="Instagram" variant="ghost" icon="instagram" onPress={openInstagram} />
+          <Btn label="TikTok" variant="ghost" icon="tiktok" onPress={openTiktok} />
+          <Btn label="Email" variant="ghost" icon="mail" onPress={openEmail} />
+          <Btn label="Interest Form" variant="ghost" icon="edit" onPress={() => navigate('interest')} />
         </View>
       </Reveal>
     </View>
@@ -313,11 +328,10 @@ function Car() {
 
       <Reveal>
         <View style={styles.coverWrap}>
-          <Image
-            source={require('./assets/VUM_2026_Car.jpeg')}
-            style={[styles.cover, { height: (width || 300) * (2 / 3) }]}
-            accessible={true}
-            accessibilityLabel="Vanderbilt University Motorsports race car"
+          <CoverImage
+            source={require('./assets/VUM_2026_Car.webp')}
+            height={(width || 300) * (2 / 3)}
+            alt="Vanderbilt University Motorsports race car VU-83"
           />
         </View>
       </Reveal>
@@ -377,8 +391,8 @@ function Sponsor() {
         <Text style={styles.subtitle}>Contact to Sponsor</Text>
         <Text style={styles.paragraph}>For sponsorship inquiries, email us:</Text>
         <View style={styles.linkRow}>
-          <Btn label="Email our Team" icon={{ set: 'feather', name: 'mail' }} onPress={openEmail} />
-          <Btn label="Donate" variant="ghost" icon={{ set: 'feather', name: 'heart' }} onPress={openDonate} />
+          <Btn label="Email our Team" icon="mail" onPress={openEmail} />
+          <Btn label="Donate" variant="ghost" icon="heart" onPress={openDonate} />
         </View>
       </Reveal>
     </View>
@@ -458,7 +472,7 @@ function InterestForm() {
       ) : (
         <Btn
           label="Open Interest Form"
-          icon={{ set: 'feather', name: 'edit-3' }}
+          icon="edit"
           onPress={() => Linking.openURL(INTEREST_FORM_URL)}
         />
       )}
@@ -536,9 +550,19 @@ const styles = StyleSheet.create({
   specLabel: { color: GOLD, fontSize: 13, fontWeight: '700', letterSpacing: 1.5, textTransform: 'uppercase', marginBottom: 6, fontFamily: SANS },
   specValue: { color: TEXT, fontSize: 16, lineHeight: 22 },
 
+  // Announcement
+  announce: { maxWidth: 760, marginBottom: 24, padding: 18, borderRadius: 12, backgroundColor: CARD, borderWidth: 1, borderColor: BORDER, borderLeftWidth: 3, borderLeftColor: GOLD },
+  announceEyebrow: { color: GOLD, fontSize: 12, fontWeight: '700', letterSpacing: 2.5, marginBottom: 6, fontFamily: SANS },
+  announceTitle: { color: '#fff', fontSize: 24, fontWeight: '800', letterSpacing: 0.5, marginBottom: 14, fontFamily: DISPLAY },
+  announceDates: { flexDirection: 'row', flexWrap: 'wrap', gap: 12, marginBottom: 14 },
+  announceDate: { flexGrow: 1, flexBasis: 180, minWidth: 160, paddingVertical: 10, paddingHorizontal: 14, borderRadius: 10, borderWidth: 1, borderColor: BORDER },
+  announceDay: { color: TEXT, fontSize: 15, fontWeight: '700', fontFamily: SANS },
+  announceTime: { color: GOLD, fontSize: 20, fontWeight: '800', marginTop: 2, letterSpacing: 0.5, fontFamily: DISPLAY },
+  announceNote: { color: MUTED, fontSize: 14, lineHeight: 21, marginBottom: 16, fontFamily: SANS },
+  announceCta: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
+
   // Cover images
   coverWrap: { marginBottom: 22, borderRadius: 12, overflow: 'hidden', borderWidth: 1, borderColor: BORDER },
-  cover: { width: '100%', resizeMode: 'cover' },
 
   // Embedded interest form
   formFrame: { width: '100%', height: 900, marginTop: 14, borderRadius: 12, overflow: 'hidden', borderWidth: 1, borderColor: BORDER, backgroundColor: '#fff' },

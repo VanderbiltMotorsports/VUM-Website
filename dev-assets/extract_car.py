@@ -2,8 +2,8 @@
 Regenerate the hero car silhouette from a competition side-profile photo.
 
 The home-page particle hero (HeroCanvas.web.tsx) samples its target shape from
-assets/car-silhouette.png -- a background-removed, transparent PNG of the car.
-This script produces that file from a source photo using rembg (u2net).
+assets/car-silhouette.webp -- a background-removed, transparent cutout of the
+car. This script produces that file from a source photo using rembg (u2net).
 
 Usage:
     pip install rembg onnxruntime pillow
@@ -21,8 +21,12 @@ from PIL import Image
 from rembg import remove, new_session
 
 SRC = sys.argv[1] if len(sys.argv) > 1 else "dev-assets/DZ8_9875.JPG"
-OUT = "assets/car-silhouette.png"
-TARGET_W = 1400          # sampling-friendly width for the particle field
+OUT = "assets/car-silhouette.webp"
+# The cutout is never displayed -- HeroCanvas.web.tsx only reads its pixels, and
+# it does that at OH = 380 (see sampleTargets). Emitting it at exactly that
+# height makes the sample a 1:1 blit and keeps the file ~57 KB instead of the
+# ~874 KB a 1400px PNG cost. Keep TARGET_H in sync with OH if that changes.
+TARGET_H = 380
 WORK_W = 2200            # downscale before matting to keep it fast
 
 print("loading", SRC, flush=True)
@@ -74,6 +78,8 @@ if bbox2:
     out = out.crop(bbox2)
 
 w2, h2 = out.size
-out = out.resize((TARGET_W, max(1, int(h2 * TARGET_W / w2))), Image.LANCZOS)
-out.save(OUT)
+out = out.resize((max(1, round(w2 * TARGET_H / h2)), TARGET_H), Image.LANCZOS)
+# alpha_quality=100 keeps the mask itself lossless (the sampler thresholds on
+# alpha); only the RGB the particles take their brightness from is compressed.
+out.save(OUT, "WEBP", quality=88, alpha_quality=100, method=6)
 print("saved", OUT, out.size, flush=True)
