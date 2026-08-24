@@ -13,7 +13,9 @@ dist/
 .ios/
 
 # Large source media for the silhouette pipeline — keep the script, not the
-# raw competition photos (the generated assets/car-silhouette.png is committed).
+# raw competition photos (the generated assets/car-silhouette.webp is committed).
+# Note these patterns are deliberately non-recursive: dev-assets/sponsor_logos/
+# is small enough to track, so prep_sponsor_logos.py can always be re-run.
 dev-assets/*.jpg
 dev-assets/*.jpeg
 dev-assets/*.JPG
