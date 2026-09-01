@@ -207,7 +207,7 @@ function Announcement({ navigate }: { navigate: (r: Route) => void }) {
           </View>
         </View>
         <Text style={styles.announceNote}>
-          Applications to join the team close {APPLICATION_DEADLINE}. Next steps will be sent to everyone who applies.
+          Applications to join the team close {APPLICATION_DEADLINE}.
         </Text>
         <View style={styles.announceCta}>
           <Btn label="Apply Now" icon="edit" onPress={() => navigate('apply')} />
@@ -501,12 +501,7 @@ function Apply() {
         <Text style={styles.title}>Apply</Text>
         <Text style={styles.paragraph}>
           Interested in Vanderbilt University Motorsports? Applications for the team are open now and close{' '}
-          <Text style={styles.paragraphStrong}>{APPLICATION_DEADLINE}</Text>. We welcome students from all majors — no
-          prior motorsports experience required.
-        </Text>
-        <Text style={styles.paragraph}>
-          The application asks about your background, interests, and which subteam you'd like to work on. It takes only
-          a few minutes to complete.
+          <Text style={styles.paragraphStrong}>{APPLICATION_DEADLINE}</Text>. We welcome students from all majors.
         </Text>
       </Reveal>
 
