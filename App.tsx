@@ -19,14 +19,15 @@ const TEXT = '#ececec';
 const MUTED = '#9a9a9a';
 const DISPLAY = Platform.OS === 'web' ? '"Saira Condensed", "Arial Narrow", sans-serif' : undefined;
 const SANS = Platform.OS === 'web' ? '"Saira", system-ui, sans-serif' : undefined;
-const INTEREST_FORM_URL = 'https://docs.google.com/forms/d/e/1FAIpQLSeA5cOb4lWqXWD9NSBa_KXdz_cUqbWSGDK7P5BQ_mZV_X8fwQ/viewform';
+const APPLICATION_URL = 'https://tinyurl.com/VUMotorsports';
+const APPLICATION_DEADLINE = 'Friday, Sep 4';
 
 // The extracted VU-83 cutout (transparent WebP) used by the hero particle field.
 const CAR_URI = resolveUri(require('./assets/car-silhouette.webp'));
 
 injectWebStyles();
 
-type Route = 'home' | 'car' | 'sponsor' | 'contact' | 'interest';
+type Route = 'home' | 'car' | 'sponsor' | 'contact' | 'apply';
 
 type Member = { name: string; role: string; email: string; year: string; major: string; category: 'executive' | 'returning' | 'faculty' };
 
@@ -36,8 +37,6 @@ const TEAM_MEMBERS: Member[] = [
   { name: 'Kriti Lohiya', role: 'Secretary', email: 'kriti.lohiya@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'executive' },
   { name: 'Ariel Alvarez', role: 'Member', email: 'ariel.j.alvarez@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'returning' },
   { name: 'Caroline Daub', role: 'Member', email: 'caroline.a.daub@vanderbilt.edu', year: 'Junior', major: 'Mechanical Engineering & Cognitive Studies', category: 'returning' },
-  { name: 'Aytug Demir', role: 'Member', email: 'aytug.demir@vanderbilt.edu', year: 'Sophomore', major: 'Electrical and Computer Engineering', category: 'returning' },
-  { name: 'Rebeca Lin', role: 'Member', email: 'rebeca.lin@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'returning' },
   { name: 'Daiwei Lu', role: 'Member', email: 'daiwei.lu@vanderbilt.edu', year: 'Graduate', major: 'Computer Science', category: 'returning' },
   { name: 'Michael Ramirez', role: 'Member', email: 'michael.ramirez@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'returning' },
   { name: 'Claire Spector', role: 'Member', email: 'claire.n.spector@vanderbilt.edu', year: 'Sophomore', major: 'Mechanical Engineering', category: 'returning' },
@@ -57,9 +56,12 @@ export default function App() {
     if (Platform.OS === 'web' && typeof window !== 'undefined') {
       const getRouteFromHash = () => {
         const hash = window.location.hash.replace('#', '');
-        if (hash === 'car' || hash === 'sponsor' || hash === 'contact' || hash === 'interest') {
+        if (hash === 'car' || hash === 'sponsor' || hash === 'contact' || hash === 'apply') {
           return hash as Route;
         }
+        // Links handed out while the interest form was live still land on the
+        // page that replaced it.
+        if (hash === 'interest') return 'apply' as Route;
         return 'home' as Route;
       };
 
@@ -107,9 +109,9 @@ export default function App() {
             <NavButton label={narrow ? 'Sponsor' : 'Sponsorship'} onPress={() => navigate('sponsor')} active={route === 'sponsor'} narrow={narrow} />
             <NavButton label="Contact" onPress={() => navigate('contact')} active={route === 'contact'} narrow={narrow} />
             <NavButton
-              label="Interest Form"
-              onPress={() => navigate('interest')}
-              active={route === 'interest'}
+              label="Apply"
+              onPress={() => navigate('apply')}
+              active={route === 'apply'}
               narrow={narrow}
             />
           </View>
@@ -122,7 +124,7 @@ export default function App() {
           {route === 'car' && <Car />}
           {route === 'sponsor' && <Sponsor />}
           {route === 'contact' && <Contact />}
-          {route === 'interest' && <InterestForm />}
+          {route === 'apply' && <Apply />}
         </Animated.View>
       </ScrollView>
 
@@ -191,31 +193,24 @@ function HoverCard({ children, style }: { children: React.ReactNode; style?: any
 }
 
 // Recruiting announcement shown at the top of the home page. Delete this block
-// (and the <Announcement /> in Home) once the meetings have passed.
-const INTEREST_MEETINGS = [
-  { day: 'Monday, Aug 31', time: '7:30 PM' },
-  { day: 'Tuesday, Sep 1', time: '6:00 PM' },
-];
-
+// (and the <Announcement /> in Home) once applications have closed.
 function Announcement({ navigate }: { navigate: (r: Route) => void }) {
   return (
     <Reveal>
       <View style={styles.announce}>
         <Text style={styles.announceEyebrow}>UPCOMING</Text>
-        <Text style={styles.announceTitle}>Interest Meetings</Text>
+        <Text style={styles.announceTitle}>Applications Open</Text>
         <View style={styles.announceDates}>
-          {INTEREST_MEETINGS.map((m) => (
-            <View key={m.day} style={styles.announceDate}>
-              <Text style={styles.announceDay}>{m.day}</Text>
-              <Text style={styles.announceTime}>{m.time}</Text>
-            </View>
-          ))}
+          <View style={styles.announceDate}>
+            <Text style={styles.announceDay}>Applications Due</Text>
+            <Text style={styles.announceTime}>{APPLICATION_DEADLINE}</Text>
+          </View>
         </View>
         <Text style={styles.announceNote}>
-          Reminders and the location will be sent to everyone who has applied through the interest form.
+          Applications to join the team close {APPLICATION_DEADLINE}. Next steps will be sent to everyone who applies.
         </Text>
         <View style={styles.announceCta}>
-          <Btn label="Interest Form" icon="edit" onPress={() => navigate('interest')} />
+          <Btn label="Apply Now" icon="edit" onPress={() => navigate('apply')} />
         </View>
       </View>
     </Reveal>
@@ -282,8 +277,8 @@ function Home({ navigate }: { navigate: (r: Route) => void }) {
       <Reveal>
         <Text style={styles.subtitle}>Get Involved</Text>
         <Text style={styles.paragraph}>
-          We welcome students from all majors. If you're interested in joining, check the Contact page to reach out to team members or visit our Sponsorship page
-          to support the program.
+          We welcome students from all majors. If you're interested in joining, submit an application by {APPLICATION_DEADLINE} — you can also check the Contact page
+          to reach out to team members, or visit our Sponsorship page to support the program.
         </Text>
       </Reveal>
 
@@ -296,7 +291,7 @@ function Home({ navigate }: { navigate: (r: Route) => void }) {
           <Btn label="Instagram" variant="ghost" icon="instagram" onPress={openInstagram} />
           <Btn label="TikTok" variant="ghost" icon="tiktok" onPress={openTiktok} />
           <Btn label="Email" variant="ghost" icon="mail" onPress={openEmail} />
-          <Btn label="Interest Form" variant="ghost" icon="edit" onPress={() => navigate('interest')} />
+          <Btn label="Apply" variant="ghost" icon="edit" onPress={() => navigate('apply')} />
         </View>
       </Reveal>
     </View>
@@ -496,32 +491,33 @@ function Contact() {
   );
 }
 
-function InterestForm() {
+function Apply() {
+  const openApplication = () => Linking.openURL(APPLICATION_URL);
+
   return (
     <View style={styles.page}>
       <Reveal>
         <Text style={styles.eyebrow}>JOIN THE TEAM</Text>
-        <Text style={styles.title}>Interest Form</Text>
+        <Text style={styles.title}>Apply</Text>
         <Text style={styles.paragraph}>
-          Interested in Vanderbilt University Motorsports? Complete the form below to tell us about yourself.
+          Interested in Vanderbilt University Motorsports? Applications for the team are open now and close{' '}
+          <Text style={styles.paragraphStrong}>{APPLICATION_DEADLINE}</Text>. We welcome students from all majors — no
+          prior motorsports experience required.
+        </Text>
+        <Text style={styles.paragraph}>
+          The application asks about your background, interests, and which subteam you'd like to work on. It takes only
+          a few minutes to complete.
         </Text>
       </Reveal>
 
-      {Platform.OS === 'web' ? (
-        <View style={styles.formFrame}>
-          {React.createElement('iframe', {
-            src: `${INTEREST_FORM_URL}?embedded=true`,
-            title: 'Vanderbilt University Motorsports Interest Form',
-            style: { width: '100%', height: '100%', border: 0, backgroundColor: '#fff' },
-          })}
+      <Reveal>
+        <View style={styles.applyCta}>
+          <Btn label="Open Application" icon="edit" onPress={openApplication} />
         </View>
-      ) : (
-        <Btn
-          label="Open Interest Form"
-          icon="edit"
-          onPress={() => Linking.openURL(INTEREST_FORM_URL)}
-        />
-      )}
+        <Text style={styles.applyLink} onPress={openApplication}>
+          {APPLICATION_URL.replace('https://', '')}
+        </Text>
+      </Reveal>
     </View>
   );
 }
@@ -623,13 +619,15 @@ const styles = StyleSheet.create({
   // Cover images
   coverWrap: { marginBottom: 22, borderRadius: 12, overflow: 'hidden', borderWidth: 1, borderColor: BORDER },
 
-  // Embedded interest form
-  formFrame: { width: '100%', height: 900, marginTop: 14, borderRadius: 12, overflow: 'hidden', borderWidth: 1, borderColor: BORDER, backgroundColor: '#fff' },
+  // Application page
+  applyCta: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 8 },
+  applyLink: { color: MUTED, fontSize: 13, marginTop: 10, fontFamily: SANS },
 
   // Typography
   title: { fontSize: 40, fontWeight: '800', marginBottom: 12, color: '#fff', letterSpacing: 0.5, fontFamily: DISPLAY },
   subtitle: { fontSize: 22, fontWeight: '700', marginTop: 22, marginBottom: 10, color: '#fff', letterSpacing: 0.5, fontFamily: DISPLAY },
   paragraph: { fontSize: 16, color: '#d6d6d6', lineHeight: 25, marginBottom: 10, maxWidth: 760, fontFamily: SANS },
+  paragraphStrong: { color: GOLD_HI, fontWeight: '700' },
 
   footer: { padding: 18, borderTopWidth: 1, borderTopColor: BORDER, alignItems: 'center', backgroundColor: BG, position: 'relative', zIndex: 2 },
   footerText: { color: MUTED, fontFamily: SANS, fontSize: 13 },
